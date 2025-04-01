@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Sign Up</h2>
+    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+        <div class="form-group">
+            <label for="username">User Name</label>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="newUser.username" required minlength="3">
+            <div *ngIf="userForm.controls['username']?.touched && userForm.controls['username']?.invalid" class="text-danger">
+              Please enter a valid username.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required email>
+            <div *ngIf="userForm.controls['email']?.touched && userForm.controls['email']?.invalid" class="text-danger">
+              Please enter a valid email address.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="newUser.password" required>
+            <div *ngIf="userForm.controls['password']?.touched && userForm.controls['password']?.invalid" class="text-danger">
+              Password is required.
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </form>
+</div>

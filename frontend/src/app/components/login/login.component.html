@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Login</h2>
+  <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userLogin.email" required email>
+          <div *ngIf="userForm.controls['email']?.touched && userForm.controls['email']?.invalid" class="text-danger">
+            Please enter a valid email address.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userLogin.password" required>
+          <div *ngIf="userForm.controls['password']?.touched && userForm.controls['password']?.invalid" class="text-danger">
+            Password is required.
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <div *ngIf="error" class="text-danger">
+          {{error}}
+        </div>
+  </form>
+</div>

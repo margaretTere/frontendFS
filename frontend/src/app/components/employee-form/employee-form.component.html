@@ -1,0 +1,100 @@
+<div class="container">
+    <h2>{{ operation === 'add' ? 'Add Employee' : operation === 'edit' ? 'Edit Employee' : 'View Employee' }}</h2>
+    
+    <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)" *ngIf="employee">
+      <div class="form-group">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" class="form-control" name="first_name" [(ngModel)]="employee.first_name" [readonly]="operation === 'view'" required minlength="2">
+        <div *ngIf="employeeForm.controls['first_name']?.touched && employeeForm.controls['first_name']?.invalid" class="text-danger">
+          Please enter a valid first name.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" class="form-control" name="last_name" [(ngModel)]="employee.last_name" [readonly]="operation === 'view'" required minlength="2">
+        <div *ngIf="employeeForm.controls['last_name']?.touched && employeeForm.controls['last_name']?.invalid" class="text-danger">
+          Please enter a valid last name.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" class="form-control" name="email" [(ngModel)]="employee.email" [readonly]="operation === 'view'" required email>
+        <div *ngIf="employeeForm.controls['email']?.touched && employeeForm.controls['email']?.invalid" class="text-danger">
+          Please enter a valid email address.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" class="form-control" name="gender" [(ngModel)]="employee.gender" [disabled]="operation === 'view'" required>
+          <option value="" disabled>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <div *ngIf="employeeForm.controls['gender']?.touched && employeeForm.controls['gender']?.invalid" class="text-danger">
+          Please select gender.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" class="form-control" name="designation" [(ngModel)]="employee.designation" [readonly]="operation === 'view'" required minlength="4">
+        <div *ngIf="employeeForm.controls['designation']?.touched && employeeForm.controls['designation']?.invalid" class="text-danger">
+          Please enter a valid designation.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="salary">Salary:</label>
+        <input 
+        type="number" 
+        id="salary" 
+        class="form-control" 
+        name="salary" 
+        [(ngModel)]="employee.salary" 
+        [readonly]="operation === 'view'" 
+        required pattern="^[0-9]+$"
+        [min]="1000"
+        [max]="100000">
+        <div *ngIf="employeeForm.controls['salary']?.touched && employeeForm.controls['salary']?.invalid" class="text-danger">
+          Please enter a valid salary between $1000 and $100000.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="date_of_joining">Date of Joining:</label>
+        <input 
+        type="date" 
+        id="date_of_joining" 
+        class="form-control" 
+        name="date_of_joining" 
+        [(ngModel)]="employee.date_of_joining" 
+        [readonly]="operation === 'view'" 
+        required
+        [max]="maxDate">
+        <div *ngIf="employeeForm.controls['date_of_joining']?.touched && employeeForm.controls['date_of_joining']?.invalid" class="text-danger">
+          Please enter a valid date of joining within 10 last days.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="department">Department:</label>
+        <input type="text" id="department" class="form-control" name="department" [(ngModel)]="employee.department" [readonly]="operation === 'view'" required minlength="3">
+        <div *ngIf="employeeForm.controls['department']?.touched && employeeForm.controls['department']?.invalid" class="text-danger">
+          Please enter a valid department.
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-primary" routerLink="/employees" routerLinkActive="router-link-active">Back To List</a>
+        </div>
+        <div class="col" *ngIf="operation !== 'view'">
+          <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid || isSubmitting">{{ operation === 'add' ? 'Add' : 'Update' }} Employee</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
