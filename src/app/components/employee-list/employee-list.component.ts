@@ -39,6 +39,9 @@ export class EmployeeListComponent implements OnInit {
   }
 
   searchEmployees(kind: number): void {
+    if (kind === 3) {
+      this.search = '';
+    }
     if (this.search) {
         this.getEmployeesByDesignationOrDepartment(kind);
     } else {
