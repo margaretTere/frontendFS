@@ -25,3 +25,20 @@ query searchEmployeeByEid($id: String!) {
     }
   }
 `;
+
+export const SEARCH_EMPLOYEE_BY_DESIGNATION_OR_DEPARTMENT = gql`
+query searchEmployeeByDesignationOrDepartment(
+  $designation: String, 
+  $department: String
+  ) {
+  searchEmployeeByDesignationOrDepartment(
+    designation: $designation,
+    department: $department
+    ) {
+    _id
+    first_name
+    last_name
+    email
+  }
+}
+`;

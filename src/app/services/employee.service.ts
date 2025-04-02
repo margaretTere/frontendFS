@@ -5,7 +5,8 @@ import { catchError, map } from 'rxjs/operators';
 import { Employee } from '../data-models/employee-type';
 import { 
   GET_ALL_EMPLOYEES,
-  SEARCH_EMPLOYEE_BY_ID
+  SEARCH_EMPLOYEE_BY_ID,
+  SEARCH_EMPLOYEE_BY_DESIGNATION_OR_DEPARTMENT
 } from '../graphql/employee.queries';
 import { 
   DELETE_EMPLOYEE_BY_ID,
@@ -39,6 +40,28 @@ export class EmployeeService {
       map(result => result.data.searchEmployeeByEid)
     );
   }
+  getEmployeesByDesignationOrDepartment(
+    designation: String, 
+    department: String): Observable<Employee[]> {
+      let vars = {};
+      if (designation && department)
+        vars = {designation, department};
+      else if (designation)
+        vars = {designation};
+      else if (department)
+        vars = {department}
+
+      return this.apollo.watchQuery<{ searchEmployeeByDesignationOrDepartment: Employee[] }>({
+        query: SEARCH_EMPLOYEE_BY_DESIGNATION_OR_DEPARTMENT,
+        fetchPolicy: 'no-cache',
+        variables: vars
+      }).valueChanges.pipe(
+        map((result) => {
+          return result.data.searchEmployeeByDesignationOrDepartment;
+        }) 
+      );
+  }
+
 
   addEmployee(employee: Employee): Observable<any> {
     return this.apollo.mutate({
