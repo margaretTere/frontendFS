@@ -4,13 +4,13 @@
     <div class="col-md-6 col-sm-12">
       <!-- Search Form -->
       <div class="mb-3">
-        <input type="text" class="form-control" id="search" [(ngModel)]="search" placeholder="Enter criteria">
+        <input type="text" class="form-control" id="search" [(ngModel)]="search" placeholder="Search criteria">
       </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
-      <button class="btn btn-primary" (click)="searchEmployees(0)">Search By Designation</button>
-      <button class="btn btn-primary" (click)="searchEmployees(1)">Search By Department</button>
+      <button class="btn btn-primary" (click)="searchEmployees(0)">By Designation</button>
+      <button class="btn btn-primary" (click)="searchEmployees(1)">By Department</button>
       <button class="btn btn-primary" (click)="searchEmployees(3)">Clear Filters</button>
     </div>
   </div>
